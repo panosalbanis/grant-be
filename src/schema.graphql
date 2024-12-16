@@ -1,0 +1,103 @@
+type Query {
+  locations: [Location]
+}
+
+type Query {
+  organizations: [Organization]
+}
+
+type Query {
+  grants: [Grant]
+}
+
+type Query {
+  findGrants(searchTerm: String): [Grant]
+}
+
+type Query {
+  applicants: [Applicant]
+}
+
+type Query {
+  matches: [Match]
+}
+
+type Query {
+  feedback: [Feedback]
+}
+
+type Mutation {
+  submitFeedback(
+    interest: Boolean
+    grant: ID
+    applicant: ID
+    feedbackText: String
+  ): Feedback
+}
+
+scalar Date
+
+enum ApplicationType {
+  ONLINE
+  PAPER
+}
+
+enum ApplicationStatus {
+  APPLIED
+  ACCEPTED
+  REJECTED
+  NOT_APPLIED
+}
+
+enum Tag {
+  PUBLIC_HEALTH_WOMEN
+  CULTURE_FOOD
+  MEDICAL_ASSISTANT
+  VETERANS_ISSUES
+}
+
+type Grant {
+  id: ID!
+  organization: Organization
+  name: String
+  avgAmount: Int
+  deadLine: Date
+  applicationType: ApplicationType
+  location: Location
+  tags: [Tag]
+}
+
+type Applicant {
+  id: ID!
+  name: String
+}
+
+type Organization {
+  id: ID!
+  name: String
+}
+
+type Location {
+  id: ID!
+  town: String
+  state: String
+  country: String
+}
+
+type Feedback {
+  id: ID!
+  applicant: Applicant
+  grant: Grant
+  feedbackText: String
+  interest: Boolean
+  dateTime: String
+}
+
+type Match {
+  id: ID!
+  applicant: Applicant
+  grant: Grant
+  matchDate: Date
+  status: ApplicationStatus
+  interest: Boolean
+}

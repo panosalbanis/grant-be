@@ -1,0 +1,19 @@
+services:
+  grant-be:
+    build: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    networks:
+      - network
+  db:
+    image: mongodb/mongodb-community-server:latest
+    ports:
+      - '27017:27017'
+    networks:
+      network:
+        aliases:
+          - db
+networks:
+  network:
